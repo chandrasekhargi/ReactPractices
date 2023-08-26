@@ -1,0 +1,24 @@
+.remove-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: #ffffff 1px solid;
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+img {
+  height: 150px;
+}
+
+.img-li {
+  list-style-type: none;
+  width: 22%;
+  margin: 10px;
+}
+
+.country-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
