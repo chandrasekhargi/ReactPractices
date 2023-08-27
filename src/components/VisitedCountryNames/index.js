@@ -78,40 +78,76 @@ const initialCountriesList = [
 
 class VisitedCountryNames extends Component {
   state = {
-    contactsList: initialCountriesList,
-    emptyImg: '',
+    countriesImgList: initialCountriesList,
+    countriesNameList: initialCountriesList,
   }
 
   removeCountry = id => {
-    const {contactsList} = this.state
+    // const getImgList = countriesImgList.filter(each => each.id !== id)
 
-    const lengthOfCountries = document.getElementById(
-      'countries-list-of-length',
-    )
-    const getList = contactsList.filter(each => each.id !== id)
-    this.setState({contactsList: getList, emptyImg: lengthOfCountries.length})
-  }
-
-  clickOnVisitBtn = event => {
     this.setState(prevState => ({
-      contactsList: prevState.contactsList.map(each => {
-        if (each.id === event.target.id) {
-          return {...each, isVisited: !each.isVisited}
+      countriesImgList: prevState.countriesImgList.map(each => {
+        if (each.id === id) {
+          return {...each, isVisited: false}
+        }
+        return each
+      }),
+      countriesNameList: prevState.countriesNameList.map(each => {
+        if (each.id === id) {
+          return {...each, isVisited: false}
         }
         return each
       }),
     }))
   }
 
+  clickOnVisitBtn = event => {
+    this.setState(prevState => ({
+      countriesImgList: prevState.countriesImgList.map(each => {
+        if (each.id === event.target.id) {
+          return {...each, isVisited: true}
+        }
+        return each
+      }),
+      countriesNameList: prevState.countriesNameList.map(each => {
+        if (each.id === event.target.id) {
+          return {...each, isVisited: true}
+        }
+        return each
+      }),
+    }))
+  }
+
+  showImgOrNoContentView = () => {
+    const {countriesImgList} = this.state
+    const filteredImgList = countriesImgList.filter(
+      each => each.isVisited === true,
+    )
+
+    if (filteredImgList.length === 0) {
+      return <p className="no-content-view">No Countries Visited Yet!</p>
+    }
+    return (
+      <ul id="countries-list-of-length" className="image-list-con">
+        {filteredImgList.map(each => (
+          <VisitedCountryImages
+            key={each.id}
+            removeCountry={this.removeCountry}
+            eachContactsList={each}
+          />
+        ))}
+      </ul>
+    )
+  }
+
   render() {
-    const {contactsList, emptyImg} = this.state
-    console.log(emptyImg)
+    const {countriesNameList} = this.state
 
     return (
       <>
         <h1>Countries</h1>
         <ul className="country-name-container">
-          {contactsList.map(each => (
+          {countriesNameList.map(each => (
             <li className="list-of-country-names" key={`country ID:${each.id}`}>
               <p>{each.name}</p>
               <button
@@ -126,15 +162,7 @@ class VisitedCountryNames extends Component {
           ))}
         </ul>
         <h1>Visited Countries</h1>
-        <ul id="countries-list-of-length" className="image-list-con">
-          {contactsList.map(each => (
-            <VisitedCountryImages
-              key={each.id}
-              removeCountry={this.removeCountry}
-              eachContactsList={each}
-            />
-          ))}
-        </ul>
+        {this.showImgOrNoContentView()}
       </>
     )
   }

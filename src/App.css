@@ -5,6 +5,7 @@
 .bg-container {
   background-color: #161624;
   background-size: cover;
+  height: 100vh;
 }
 
 body {

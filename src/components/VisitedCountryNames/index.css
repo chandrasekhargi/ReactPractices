@@ -6,6 +6,7 @@
 
 .image-list-con {
   display: flex;
+  flex-wrap: wrap;
 }
 
 * {
@@ -14,6 +15,7 @@
 
 li {
   list-style-type: none;
+  margin-right: 20px;
 }
 
 .btn-is-true {
@@ -24,11 +26,19 @@ li {
   font-family: 'Roboto';
   font-size: 12px;
   padding: 6px;
-  cursor: pointer;
+}
+
+.no-content-view {
+  text-align: center;
+  color: #94a3b8;
+  font-family: 'Roboto';
+  margin-top: 50px;
 }
 
 .country-name-container {
-  width: 50%;
+  width: 60%;
+  overflow-y: scroll;
+  height: 200px;
 }
 
 .btn-is-false {
